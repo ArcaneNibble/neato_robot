@@ -1,6 +1,6 @@
 <package>
-  <description brief="neato_node">
-    Hardware drivers for the Neato XV-11 Robotic Vacuum.
+  <description brief="A node wrapper for the neato_driver package">
+    This package contains a node that connects to the Neato Robotics XV-11. It enables control of motors through a geometry_msgs/Twist topic and publishes laser scans and odometry.
   </description>
   <author>Michael Ferguson</author>
   <email>ferguson@cs.albany.edu</email>
