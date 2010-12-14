@@ -1,0 +1,18 @@
+<package>
+  <description brief="Driver for the Neato XV-11">
+
+    This is a generic drivers for the Neato XV-11 Robotic Vacuum.
+
+    ROS Bindings can be found in the neato_node package.
+
+  </description>
+  <author>Michael Ferguson</author>
+  <email>ferguson@cs.albany.edu</email>
+  <license>BSD</license>
+
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/neato_driver</url>
+
+</package>
+
+

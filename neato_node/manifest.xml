@@ -1,0 +1,20 @@
+<package>
+  <description brief="neato_node">
+    Hardware drivers for the Neato XV-11 Robotic Vacuum.
+  </description>
+  <author>Michael Ferguson</author>
+  <email>ferguson@cs.albany.edu</email>
+  <license>BSD</license>
+
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/neato_node</url>
+
+  <depend package="neato_driver"/>
+  <depend package="rospy"/>
+  <depend package="sensor_msgs"/>
+  <depend package="geometry_msgs"/>
+  <depend package="nav_msgs"/>
+  <depend package="tf"/>
+</package>
+
+

@@ -1,0 +1,15 @@
+<stack>
+  <description brief="neato_robot">
+    Neato XV-11 drivers and configuration files.
+  </description>
+  <author>Maintained by Michael Ferguson</author>
+  <email>ferguson@cs.albany.edu</email>
+  <license>BSD</license>  
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/neato_robot</url>
+
+  <depend stack="common_msgs" /> <!-- sensor_msgs -->
+  <depend stack="geometry" /> <!-- tf -->
+  <depend stack="ros" /> <!-- std_msgs, roscpp, rospy -->
+  
+</stack>
