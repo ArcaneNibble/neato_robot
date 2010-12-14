@@ -1,0 +1,20 @@
+<launch>
+  <param name="use_sim_time" value="false"/>
+
+  <!-- Run the map server -->
+  <node name="map_server" pkg="map_server" type="map_server" args="$(find neato_slam)/maps/neato-ils.yaml"/>
+
+  <!--- Run AMCL -->
+  <node pkg="amcl" type="amcl" name="amcl" >
+    <remap from="scan" to="base_scan" />
+  </node>
+
+  <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
+    <rosparam file="$(find neato_slam)/params/costmap_common_params.yaml" command="load" ns="global_costmap" />
+    <rosparam file="$(find neato_slam)/params/costmap_common_params.yaml" command="load" ns="local_costmap" />
+    <rosparam file="$(find neato_slam)/params/local_costmap_params.yaml" command="load" />
+    <rosparam file="$(find neato_slam)/params/global_costmap_params.yaml" command="load" />
+    <rosparam file="$(find neato_slam)/params/base_local_planner_params.yaml" command="load" />
+  </node>
+</launch>
+
