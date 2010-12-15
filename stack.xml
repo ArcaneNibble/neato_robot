@@ -1,9 +1,8 @@
 <stack>
-  <description brief="neato_robot">
-    Neato XV-11 drivers and configuration files.
+  <description brief="Neato XV-11 drivers and configuration files.">
+    This stack contains drivers for the Neato XV-11 robot. It also contains sample configuration files for running the Navigation stack on an XV-11.
   </description>
   <author>Maintained by Michael Ferguson</author>
-  <email>ferguson@cs.albany.edu</email>
   <license>BSD</license>  
   <review status="unreviewed" notes=""/>
   <url>http://ros.org/wiki/neato_robot</url>
