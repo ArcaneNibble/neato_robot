@@ -66,7 +66,8 @@ class NeatoNode:
         then = rospy.Time.now()
 
         # things that don't ever change
-        scan = LaserScan(header=rospy.Header(frame_id="base_laser")) 
+        scan_link = rospy.get_param('~frame_id','base_laser_link')
+        scan = LaserScan(header=rospy.Header(frame_id=scan_link)) 
         scan.angle_min = 0
         scan.angle_max = 6.26
         scan.angle_increment = 0.017437326
