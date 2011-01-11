@@ -116,6 +116,7 @@ class NeatoNode:
             quaternion.w = cos(self.th/2.0)
 
             # prepare odometry
+            odom.header.stamp = rospy.Time.now()
             odom.pose.pose.position.x = self.x
             odom.pose.pose.position.y = self.y
             odom.pose.pose.position.z = 0
