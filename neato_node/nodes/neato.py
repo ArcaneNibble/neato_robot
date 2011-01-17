@@ -37,7 +37,7 @@ from geometry_msgs.msg import Twist
 from nav_msgs.msg import Odometry
 from tf.broadcaster import TransformBroadcaster
 
-from neato_driver import xv11, BASE_WIDTH
+from neato_driver import xv11, BASE_WIDTH, MAX_SPEED
 
 class NeatoNode:
 
@@ -140,7 +140,10 @@ class NeatoNode:
     def cmdVelCb(self,req):
         x = req.linear.x * 1000
         th = req.angular.z * (BASE_WIDTH/2) 
-        self.cmd_vel = [ int(x - th), int(x +th) ]
+        k = max(abs(x-th),abs(x+th))
+        if k > MAX_SPEED:
+            x = x*MAX_SPEED/k; th = th*MAX_SPEED/k
+        self.cmd_vel = [ int(x-th) , int(x+th) ]
 
 if __name__ == "__main__":    
     robot = NeatoNode()
