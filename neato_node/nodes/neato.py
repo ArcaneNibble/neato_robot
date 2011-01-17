@@ -141,6 +141,7 @@ class NeatoNode:
         x = req.linear.x * 1000
         th = req.angular.z * (BASE_WIDTH/2) 
         k = max(abs(x-th),abs(x+th))
+        # sending commands higher than max speed will fail
         if k > MAX_SPEED:
             x = x*MAX_SPEED/k; th = th*MAX_SPEED/k
         self.cmd_vel = [ int(x-th) , int(x+th) ]
