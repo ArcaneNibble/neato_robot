@@ -137,11 +137,20 @@ class xv11():
         """ Read values of a scan -- call requestScan first! """
         ranges = list()
         angle = 0
-        line = self.port.readline()
-        while line.split(",")[0] != "AngleInDegrees": 
+        try:
             line = self.port.readline()
+        except:
+            return []
+        while line.split(",")[0] != "AngleInDegrees": 
+            try:
+                line = self.port.readline()
+            except:
+                return []
         while angle < 360:
-            vals = self.port.readline()
+            try:
+                vals = self.port.readline()
+            except:
+                pass
             vals = vals.split(",")
             #print angle, vals
             try:
@@ -164,10 +173,13 @@ class xv11():
         self.port.write("getmotors\n")
         line = self.port.readline()
         while line.split(",")[0] != "Parameter": 
-            line = self.port.readline()
-        for i in range(len(xv11_motor_info)):
-            values = self.port.readline().split(",")
             try:
+                line = self.port.readline()
+            except:
+                return [0,0]
+        for i in range(len(xv11_motor_info)):
+            try:
+                values = self.port.readline().split(",")
                 self.state[values[0]] = int(values[1])
             except:
                 pass
@@ -178,10 +190,13 @@ class xv11():
         self.port.write("getanalogsensors\n")
         line = self.port.readline()
         while line.split(",")[0] != "SensorName": 
-            line = self.port.readline()
-        for i in range(len(xv11_analog_sensors)):
-            values = self.port.readline().split(",")
             try:
+                line = self.port.readline()
+            except:
+                return
+        for i in range(len(xv11_analog_sensors)):
+            try:
+                values = self.port.readline().split(",")
                 self.state[values[0]] = int(values[1])
             except:
                 pass
@@ -191,10 +206,13 @@ class xv11():
         self.port.write("getdigitalsensors\n")
         line = self.port.readline()
         while line.split(",")[0] != "Digital Sensor Name": 
-            line = self.port.readline()
-        for i in range(len(xv11_digital_sensors)):
-            values = self.port.readline().split(",")
             try:
+                line = self.port.readline()
+            except:
+                return
+        for i in range(len(xv11_digital_sensors)):
+            try:
+                values = self.port.readline().split(",")
                 self.state[values[0]] = int(values[1])
             except:
                 pass
