@@ -13,6 +13,10 @@
   <review status="unreviewed" notes=""/>
   <url>http://ros.org/wiki/neato_driver</url>
 
+  <export>
+    <rosdoc config="rosdoc.yaml" />
+  </export> 
+ 
 </package>
 
 
