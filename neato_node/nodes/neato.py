@@ -40,6 +40,7 @@ from geometry_msgs.msg import Quaternion
 from geometry_msgs.msg import Twist
 from nav_msgs.msg import Odometry
 from tf.broadcaster import TransformBroadcaster
+from neato_node.msg import NeatoDropSensor
 
 from neato_driver import xv11, BASE_WIDTH, MAX_SPEED
 
@@ -49,7 +50,7 @@ class NeatoNode:
         """ Start up connection to the Neato Robot. """
         rospy.init_node('neato')
 
-        self.port = rospy.get_param('~port', "/dev/ttyUSB0")
+        self.port = rospy.get_param('~port', "/dev/ttyACM0")
         rospy.loginfo("Using port: %s"%(self.port))
 
         self.robot = xv11(self.port)
@@ -57,6 +58,7 @@ class NeatoNode:
         rospy.Subscriber("cmd_vel", Twist, self.cmdVelCb)
         self.scanPub = rospy.Publisher('base_scan', LaserScan)
         self.odomPub = rospy.Publisher('odom',Odometry)
+        self.dropPub = rospy.Publisher('neato_drop',NeatoDropSensor)
         self.odomBroadcaster = TransformBroadcaster()
 
         self.cmd_vel = [0,0] 
@@ -90,6 +92,13 @@ class NeatoNode:
 
             # get motor encoder values
             left, right = self.robot.getMotors()
+            
+            # get analog sensors
+            self.robot.getAnalogSensors()
+            
+            # get drop sensors
+            left_drop = self.robot.state["LeftDropInMM"]
+            right_drop = self.robot.state["RightDropInMM"]
 
             # send updated movement commands
             self.robot.setMotors(self.cmd_vel[0], self.cmd_vel[1], max(abs(self.cmd_vel[0]),abs(self.cmd_vel[1])))
@@ -127,12 +136,19 @@ class NeatoNode:
             odom.pose.pose.orientation = quaternion
             odom.twist.twist.linear.x = dx/dt
             odom.twist.twist.angular.z = dth/dt
+            
+            # prepare drop
+            drop = NeatoDropSensor()
+            drop.header.stamp = rospy.Time.now()
+            drop.left = left_drop
+            drop.right = right_drop
 
             # publish everything
             self.odomBroadcaster.sendTransform( (self.x, self.y, 0), (quaternion.x, quaternion.y, quaternion.z, quaternion.w),
                 then, "base_link", "odom" )
             self.scanPub.publish(scan)
             self.odomPub.publish(odom)
+            self.dropPub.publish(drop)
 
             # wait, then do it again
             r.sleep()

@@ -114,7 +114,7 @@ xv11_charger_info = [ "FuelPercent",
 
 class xv11():
 
-    def __init__(self, port="/dev/ttyUSB0"):
+    def __init__(self, port="/dev/ttyACM0"):
         self.port = serial.Serial(port,115200)
         # Storage for motor and sensor information
         self.state = {"LeftWheel_PositionInMM": 0, "RightWheel_PositionInMM": 0}
