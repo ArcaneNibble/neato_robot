@@ -1,0 +1,16 @@
+<package>
+  <description brief="neato_urdf">
+
+     neato_urdf
+
+  </description>
+  <author>Robert</author>
+  <license>GPL</license>
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/neato_urdf</url>
+
+  <depend package="urdf"/>
+
+</package>
+
+
